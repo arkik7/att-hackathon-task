@@ -1,0 +1,8 @@
+{
+  "employee_id": "emp-009",
+  "display_name": "Drew Martin",
+  "work_email": "drew.martin@example.test",
+  "department": "Supply Operations",
+  "manager_id": "emp-004",
+  "employment_status": "active"
+}

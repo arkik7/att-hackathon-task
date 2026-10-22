@@ -1,0 +1,82 @@
+[
+  {
+    "employee_id": "emp-001",
+    "display_name": "Alex Morgan",
+    "work_email": "alex.morgan@example.test",
+    "department": "Engineering",
+    "manager_id": "emp-004",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "emp-002",
+    "display_name": "Sam Rivera",
+    "work_email": "sam.rivera@example.test",
+    "department": "Finance",
+    "manager_id": "emp-004",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "emp-003",
+    "display_name": "Jordan Lee",
+    "work_email": "jordan.lee@example.test",
+    "department": "Supply Operations",
+    "manager_id": "emp-004",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "emp-004",
+    "display_name": "Casey Chen",
+    "work_email": "casey.chen@example.test",
+    "department": "Engineering",
+    "manager_id": null,
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "emp-005",
+    "display_name": "Taylor Brooks",
+    "work_email": "taylor.brooks@example.test",
+    "department": "Finance",
+    "manager_id": "emp-004",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "emp-006",
+    "display_name": "Riley Patel",
+    "work_email": "riley.patel@example.test",
+    "department": "Supply Operations",
+    "manager_id": "emp-004",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "emp-007",
+    "display_name": "Morgan Diaz",
+    "work_email": "morgan.diaz@example.test",
+    "department": "Engineering",
+    "manager_id": "emp-004",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "emp-008",
+    "display_name": "Jamie Novak",
+    "work_email": "jamie.novak@example.test",
+    "department": "Finance",
+    "manager_id": "emp-004",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "emp-009",
+    "display_name": "Drew Martin",
+    "work_email": "drew.martin@example.test",
+    "department": "Supply Operations",
+    "manager_id": "emp-004",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "emp-010",
+    "display_name": "Avery Singh",
+    "work_email": "avery.singh@example.test",
+    "department": "Engineering",
+    "manager_id": "emp-004",
+    "employment_status": "active"
+  }
+]

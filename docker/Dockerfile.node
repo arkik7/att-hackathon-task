@@ -1,0 +1,19 @@
+FROM node:24.20.0-bookworm-slim AS dependencies
+WORKDIR /repo
+RUN npm install --global pnpm@11.25.0
+COPY . .
+RUN pnpm install --frozen-lockfile
+
+FROM dependencies AS build
+ARG APP
+RUN pnpm exec turbo run build --filter=${APP}...
+RUN pnpm --filter=${APP} deploy --prod --legacy /output
+
+FROM node:24.20.0-bookworm-slim AS runtime
+ARG APP
+ENV NODE_ENV=production HOST=0.0.0.0
+WORKDIR /repo/apps/${APP}
+COPY --from=build --chown=node:node /output ./
+RUN mkdir -p /repo/.runtime/${APP} && chown -R node:node /repo/.runtime
+USER node
+CMD ["node", "dist/index.mjs"]

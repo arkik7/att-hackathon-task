@@ -1,0 +1,332 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Employee directory",
+    "version": "2026.09",
+    "description": "People Directory is read-only. Leave endpoints return dated snapshots. Customer lookups use an explicit mapping and return linked=false when no mapping exists. A failed mapped lookup returns a dependency error rather than silently pretending the link is absent."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5006"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Service health",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "ok"
+                    },
+                    "service": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "service"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        }
+      }
+    },
+    "/v1/employees": {
+      "get": {
+        "summary": "Employee directory",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "employee_id": {
+                        "type": "string"
+                      },
+                      "display_name": {
+                        "type": "string"
+                      },
+                      "work_email": {
+                        "type": "string"
+                      },
+                      "department": {
+                        "type": "string"
+                      },
+                      "manager_id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "employment_status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "employee_id",
+                      "display_name",
+                      "work_email",
+                      "department",
+                      "manager_id",
+                      "employment_status"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        }
+      }
+    },
+    "/v1/employees/{id}": {
+      "get": {
+        "summary": "Employee profile",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "employee_id": {
+                      "type": "string"
+                    },
+                    "display_name": {
+                      "type": "string"
+                    },
+                    "work_email": {
+                      "type": "string"
+                    },
+                    "department": {
+                      "type": "string"
+                    },
+                    "manager_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "employment_status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "employee_id",
+                    "display_name",
+                    "work_email",
+                    "department",
+                    "manager_id",
+                    "employment_status"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/employees/{id}/leave": {
+      "get": {
+        "summary": "Leave snapshot",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "employee_id": {
+                      "type": "string"
+                    },
+                    "annual_days_remaining": {
+                      "type": "integer"
+                    },
+                    "snapshot_date": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "employee_id",
+                    "annual_days_remaining",
+                    "snapshot_date"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/employees/{id}/customer-account": {
+      "get": {
+        "summary": "Explicit customer account lookup",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "linked": {
+                          "const": true
+                        },
+                        "customer": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "display_name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "account_status": {
+                              "enum": [
+                                "active",
+                                "suspended"
+                              ]
+                            },
+                            "customer_tier": {
+                              "enum": [
+                                "standard",
+                                "business"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "display_name",
+                            "email",
+                            "account_status",
+                            "customer_tier"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "linked",
+                        "customer"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "linked": {
+                          "const": false
+                        },
+                        "customer": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "linked",
+                        "customer"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

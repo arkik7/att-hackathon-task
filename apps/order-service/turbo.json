@@ -1,0 +1,33 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "dev": {
+      "env": [
+        "PORT",
+        "HOST",
+        "DATA_DIR",
+        "USER_SERVICE_URL",
+        "ORDER_SERVICE_URL",
+        "PAYMENT_SERVICE_URL",
+        "INVENTORY_SERVICE_URL",
+        "INIT_ONLY"
+      ]
+    },
+    "test": {
+      "cache": false,
+      "env": [
+        "PORT",
+        "HOST",
+        "DATA_DIR",
+        "USER_SERVICE_URL",
+        "ORDER_SERVICE_URL",
+        "PAYMENT_SERVICE_URL",
+        "INVENTORY_SERVICE_URL",
+        "INIT_ONLY"
+      ]
+    },
+    "build": {
+      "outputs": ["dist/**"]
+    }
+  }
+}

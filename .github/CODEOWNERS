@@ -1,0 +1,10 @@
+# Effective 2026-07-01; team names are fictional.
+/apps/inventory-service/ @northstar/supply-operations
+/apps/order-service/ @northstar/commerce-core
+/apps/payment-service/ @northstar/commerce-core
+/apps/user-service/ @northstar/identity-platform
+/apps/hr-service/ @northstar/people-systems
+/apps/hr-portal/ @northstar/people-systems
+/apps/blog/ @northstar/editorial
+/archive/conference-registration/ @northstar/events-lab
+/archive/facilities-tracker/ @northstar/workplace-tools

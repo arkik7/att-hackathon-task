@@ -1,0 +1,12 @@
+{
+  "name": "inventory-service",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "node ../../scripts/python.mjs run",
+    "build": "node ../../scripts/python.mjs check",
+    "check-types": "node ../../scripts/python.mjs check",
+    "lint": "node ../../scripts/python.mjs check",
+    "test": "node ../../scripts/python.mjs test"
+  }
+}

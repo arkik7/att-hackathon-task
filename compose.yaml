@@ -1,0 +1,118 @@
+name: northstar
+x-node: &node
+  init: true
+  restart: "no"
+services:
+  user-service:
+    <<: *node
+    profiles: [commerce, hr]
+    build:
+      {
+        context: .,
+        dockerfile: docker/Dockerfile.node,
+        args: { APP: user-service },
+      }
+    ports: ["127.0.0.1:5002:5002"]
+    volumes: [users:/repo/.runtime/user-service]
+    healthcheck:
+      {
+        test:
+          [
+            CMD,
+            node,
+            -e,
+            "fetch('http://127.0.0.1:5002/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+          ],
+        interval: 5s,
+        timeout: 3s,
+        retries: 20,
+      }
+  payment-service:
+    <<: *node
+    profiles: [commerce]
+    build:
+      {
+        context: .,
+        dockerfile: docker/Dockerfile.node,
+        args: { APP: payment-service },
+      }
+    ports: ["127.0.0.1:5004:5004"]
+    volumes: [payments:/repo/.runtime/payment-service]
+  inventory-service:
+    profiles: [commerce]
+    build: { context: ., dockerfile: docker/Dockerfile.inventory }
+    ports: ["127.0.0.1:5005:5005"]
+    volumes: [inventory:/data]
+  order-service:
+    <<: *node
+    profiles: [commerce]
+    build:
+      {
+        context: .,
+        dockerfile: docker/Dockerfile.node,
+        args: { APP: order-service },
+      }
+    ports: ["127.0.0.1:5003:5003"]
+    volumes: [orders:/repo/.runtime/order-service]
+    environment:
+      USER_SERVICE_URL: http://user-service:5002
+      PAYMENT_SERVICE_URL: http://payment-service:5004
+      INVENTORY_SERVICE_URL: http://inventory-service:5005
+    depends_on: [user-service, payment-service, inventory-service]
+  api-gateway:
+    <<: *node
+    profiles: [commerce]
+    build:
+      {
+        context: .,
+        dockerfile: docker/Dockerfile.node,
+        args: { APP: api-gateway },
+      }
+    ports: ["127.0.0.1:5001:5001"]
+    environment:
+      USER_SERVICE_URL: http://user-service:5002
+      ORDER_SERVICE_URL: http://order-service:5003
+      PAYMENT_SERVICE_URL: http://payment-service:5004
+      INVENTORY_SERVICE_URL: http://inventory-service:5005
+    depends_on: [order-service]
+  storefront:
+    profiles: [commerce]
+    build:
+      {
+        context: .,
+        dockerfile: docker/Dockerfile.web,
+        target: next-runtime,
+        args: { APP: storefront },
+      }
+    ports: ["127.0.0.1:3002:3002"]
+  admin:
+    profiles: [commerce]
+    build:
+      {
+        context: .,
+        dockerfile: docker/Dockerfile.web,
+        target: vite-runtime,
+        args: { APP: admin },
+      }
+    ports: ["127.0.0.1:3001:8080"]
+  hr-service:
+    profiles: [hr]
+    build: { context: ., dockerfile: docker/Dockerfile.hr }
+    ports: ["127.0.0.1:5006:5006"]
+    environment: { USER_SERVICE_URL: "http://user-service:5002" }
+    depends_on: { user-service: { condition: service_healthy } }
+  hr-portal:
+    profiles: [hr]
+    build:
+      {
+        context: .,
+        dockerfile: docker/Dockerfile.web,
+        target: vite-runtime,
+        args: { APP: hr-portal },
+      }
+    ports: ["127.0.0.1:3004:8080"]
+volumes:
+  users:
+  orders:
+  payments:
+  inventory:

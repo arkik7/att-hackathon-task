@@ -1,0 +1,37 @@
+{
+  "name": "user-service",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.mjs",
+    "build": "tsdown src/index.ts --format esm",
+    "check-types": "tsc6 --noEmit",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "dependencies": {
+    "express": "5.2.1",
+    "cors": "2.8.6",
+    "@repo/http-client": "workspace:*",
+    "@repo/demo-identity": "workspace:*",
+    "@repo/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "26.4.1",
+    "@types/express": "5.0.6",
+    "@types/cors": "2.8.19",
+    "eslint": "9.39.1",
+    "typescript": "npm:@typescript/typescript6@6.0.2",
+    "tsx": "4.23.13",
+    "tsdown": "0.23.0"
+  },
+  "files": [
+    "dist",
+    "src/schema.graphql",
+    "fixtures",
+    "migrations"
+  ]
+}

@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS users (
+ id TEXT PRIMARY KEY, display_name TEXT NOT NULL, email TEXT NOT NULL UNIQUE,
+ status TEXT NOT NULL DEFAULT 'active'
+);

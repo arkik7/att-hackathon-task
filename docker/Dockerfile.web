@@ -1,0 +1,28 @@
+FROM node:24.20.0-bookworm-slim AS build
+WORKDIR /repo
+RUN npm install --global pnpm@11.25.0
+COPY . .
+RUN pnpm install --frozen-lockfile
+ARG APP
+ARG NEXT_PUBLIC_GATEWAY_URL=http://127.0.0.1:5001
+ARG VITE_GATEWAY_URL=http://127.0.0.1:5001
+ARG VITE_INVENTORY_URL=http://127.0.0.1:5005
+ARG VITE_HR_URL=http://127.0.0.1:5006
+ENV NEXT_PUBLIC_GATEWAY_URL=$NEXT_PUBLIC_GATEWAY_URL VITE_GATEWAY_URL=$VITE_GATEWAY_URL VITE_INVENTORY_URL=$VITE_INVENTORY_URL VITE_HR_URL=$VITE_HR_URL
+RUN pnpm exec turbo run build --filter=${APP}...
+
+FROM nginx:1.28.0-alpine AS vite-runtime
+ARG APP
+COPY --from=build /repo/apps/${APP}/dist /usr/share/nginx/html
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+USER nginx
+EXPOSE 8080
+
+FROM node:24.20.0-bookworm-slim AS next-runtime
+ENV NODE_ENV=production HOSTNAME=0.0.0.0 PORT=3002
+WORKDIR /repo
+COPY --from=build --chown=node:node /repo/apps/storefront/.next/standalone ./
+COPY --from=build --chown=node:node /repo/apps/storefront/.next/static ./apps/storefront/.next/static
+COPY --from=build --chown=node:node /repo/apps/storefront/public ./apps/storefront/public
+USER node
+CMD ["node", "apps/storefront/server.js"]

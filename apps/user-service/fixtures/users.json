@@ -1,0 +1,86 @@
+[
+  {
+    "id": "cus-001",
+    "display_name": "Alex Morgan",
+    "email": "alex.morgan@example.test",
+    "account_status": "active",
+    "customer_tier": "business"
+  },
+  {
+    "id": "cus-002",
+    "display_name": "Sam Rivera",
+    "email": "sam.rivera@example.test",
+    "account_status": "active",
+    "customer_tier": "standard"
+  },
+  {
+    "id": "cus-003",
+    "display_name": "Jordan Lee",
+    "email": "jordan.lee@example.test",
+    "account_status": "active",
+    "customer_tier": "standard"
+  },
+  {
+    "id": "cus-004",
+    "display_name": "Casey Chen",
+    "email": "casey.chen@example.test",
+    "account_status": "active",
+    "customer_tier": "business"
+  },
+  {
+    "id": "cus-005",
+    "display_name": "Taylor Brooks",
+    "email": "taylor.brooks@example.test",
+    "account_status": "active",
+    "customer_tier": "standard"
+  },
+  {
+    "id": "cus-006",
+    "display_name": "Riley Patel",
+    "email": "riley.patel@example.test",
+    "account_status": "active",
+    "customer_tier": "standard"
+  },
+  {
+    "id": "cus-007",
+    "display_name": "Morgan Diaz",
+    "email": "morgan.diaz@example.test",
+    "account_status": "active",
+    "customer_tier": "business"
+  },
+  {
+    "id": "cus-008",
+    "display_name": "Jamie Novak",
+    "email": "jamie.novak@example.test",
+    "account_status": "active",
+    "customer_tier": "standard"
+  },
+  {
+    "id": "cus-009",
+    "display_name": "Drew Martin",
+    "email": "drew.martin@example.test",
+    "account_status": "active",
+    "customer_tier": "standard"
+  },
+  {
+    "id": "cus-010",
+    "display_name": "Avery Singh",
+    "email": "avery.singh@example.test",
+    "account_status": "active",
+    "customer_tier": "business"
+  },
+  {
+    "id": "cus-011",
+    "display_name": "Robin Kim",
+    "email": "robin.kim@example.test",
+    "account_status": "active",
+    "customer_tier": "standard"
+  },
+  {
+    "id": "cus-012",
+    "display_name": "Quinn Silva",
+    "email": "quinn.silva@example.test",
+    "account_status": "suspended",
+    "customer_tier": "standard"
+  }
+]

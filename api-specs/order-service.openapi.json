@@ -1,0 +1,399 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Create order",
+    "version": "2026.09",
+    "description": "Orders accepts unique SKU rows with positive integer quantities. Reads return total_minor and a charge_id. The customer context is carried using x-demo-user-id in the local environment. Individual order reads must enforce the same ownership rule as lists."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5003"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Service health",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "ok"
+                    },
+                    "service": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "service"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        }
+      }
+    },
+    "/v1/orders": {
+      "post": {
+        "summary": "Create order",
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "total_minor": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "enum": [
+                        "confirmed",
+                        "declined"
+                      ]
+                    },
+                    "charge_id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sku": {
+                            "type": "string"
+                          },
+                          "quantity": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "sku",
+                          "quantity"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "customer_id",
+                    "total_minor",
+                    "status",
+                    "charge_id",
+                    "created_at"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          },
+          "402": {
+            "description": "Declined order persisted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "total_minor": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "enum": [
+                        "confirmed",
+                        "declined"
+                      ]
+                    },
+                    "charge_id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sku": {
+                            "type": "string"
+                          },
+                          "quantity": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "sku",
+                          "quantity"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "customer_id",
+                    "total_minor",
+                    "status",
+                    "charge_id",
+                    "created_at"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customerId": {
+                    "type": "string"
+                  },
+                  "items": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 20,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "sku",
+                        "quantity"
+                      ],
+                      "properties": {
+                        "sku": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  },
+                  "paymentToken": {
+                    "type": "string",
+                    "default": "tok_demo_ok"
+                  }
+                },
+                "required": [
+                  "customerId",
+                  "items"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "x-demo-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "cus-001"
+            },
+            "description": "Local demo customer context, not production authentication"
+          }
+        ]
+      },
+      "get": {
+        "summary": "Customer-scoped order list",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "customer_id": {
+                        "type": "string"
+                      },
+                      "total_minor": {
+                        "type": "integer"
+                      },
+                      "status": {
+                        "enum": [
+                          "confirmed",
+                          "declined"
+                        ]
+                      },
+                      "charge_id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "customer_id",
+                      "total_minor",
+                      "status",
+                      "charge_id",
+                      "created_at"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "x-demo-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "cus-001"
+            },
+            "description": "Local demo customer context, not production authentication"
+          }
+        ]
+      }
+    },
+    "/v1/orders/{id}": {
+      "get": {
+        "summary": "Order detail",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "total_minor": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "enum": [
+                        "confirmed",
+                        "declined"
+                      ]
+                    },
+                    "charge_id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sku": {
+                            "type": "string"
+                          },
+                          "quantity": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "sku",
+                          "quantity"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "customer_id",
+                    "total_minor",
+                    "status",
+                    "charge_id",
+                    "created_at"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

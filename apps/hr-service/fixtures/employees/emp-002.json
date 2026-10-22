@@ -1,0 +1,8 @@
+{
+  "employee_id": "emp-002",
+  "display_name": "Sam Rivera",
+  "work_email": "sam.rivera@example.test",
+  "department": "Finance",
+  "manager_id": "emp-004",
+  "employment_status": "active"
+}

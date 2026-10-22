@@ -1,0 +1,3 @@
+ALTER TABLE orders ADD COLUMN total_minor INTEGER NOT NULL DEFAULT 0;
+UPDATE orders SET total_minor = CAST(ROUND(total * 100) AS INTEGER);
+ALTER TABLE orders DROP COLUMN total;

@@ -1,0 +1,11 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "env": ["VITE_HR_URL", "INIT_ONLY"]
+    },
+    "dev": {
+      "env": ["VITE_HR_URL", "INIT_ONLY"]
+    }
+  }
+}

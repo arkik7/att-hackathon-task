@@ -1,0 +1,132 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  color: #182637;
+  background: #f3f5f8;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 36px 24px 64px;
+}
+header {
+  border-bottom: 1px solid #d9dfe7;
+  padding-bottom: 26px;
+  margin-bottom: 26px;
+}
+h1 {
+  font-size: clamp(2rem, 5vw, 3.3rem);
+  letter-spacing: -0.05em;
+  margin: 8px 0;
+}
+h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+.eyebrow {
+  text-transform: uppercase;
+  color: #ad480d;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+}
+.muted {
+  color: #657185;
+}
+a {
+  color: #a5430d;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+section,
+.card {
+  padding: 22px;
+  background: white;
+  border: 1px solid #dce2ea;
+  border-radius: 14px;
+  margin-bottom: 18px;
+}
+button {
+  background: #c95318;
+  border: 0;
+  color: white;
+  font: inherit;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+button.secondary {
+  background: #e9edf2;
+  color: #182637;
+}
+input,
+select {
+  font: inherit;
+  border: 1px solid #b9c3d0;
+  border-radius: 7px;
+  padding: 9px;
+  background: white;
+  color: inherit;
+  max-width: 100%;
+}
+label {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  margin: 0 16px 14px 0;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.badge {
+  border-radius: 99px;
+  background: #eef2f6;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+.error {
+  color: #a12525;
+  background: #fff0ef;
+  padding: 14px;
+  border-radius: 8px;
+}
+.notice {
+  background: #e8f4ef;
+  padding: 14px;
+  border-radius: 8px;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #f1f4f8;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+.price {
+  font-size: 1.7rem;
+  font-weight: 650;
+  margin: 18px 0;
+}
+footer {
+  color: #657185;
+  font-size: 0.8rem;
+  padding-top: 20px;
+}

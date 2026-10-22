@@ -1,0 +1,14 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "dev": {
+      "env": ["PORT", "HOST", "DATA_DIR", "INIT_ONLY"]
+    },
+    "test": {
+      "cache": false
+    },
+    "build": {
+      "outputs": []
+    }
+  }
+}

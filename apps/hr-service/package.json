@@ -1,0 +1,12 @@
+{
+  "name": "hr-service",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "node ../../scripts/java.mjs run",
+    "build": "node ../../scripts/java.mjs build",
+    "check-types": "node ../../scripts/java.mjs build",
+    "lint": "node ../../scripts/java.mjs build",
+    "test": "node ../../scripts/java.mjs test"
+  }
+}

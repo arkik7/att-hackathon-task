@@ -1,0 +1,16 @@
+node_modules
+**/node_modules
+.git
+.agents
+.codex
+.aws
+.organizer
+.runtime
+**/.venv
+**/__pycache__
+**/.next
+**/dist
+**/.expo
+**/.env
+ATT_Hackathon_Context_Service_Brief.html
+skills-lock.json

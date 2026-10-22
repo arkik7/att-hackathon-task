@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Northstar People",
+    "slug": "employee-mobile",
+    "version": "1.0.0",
+    "web": {
+      "bundler": "metro"
+    },
+    "platforms": ["ios", "android", "web"]
+  }
+}

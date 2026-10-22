@@ -1,0 +1,13 @@
+FROM eclipse-temurin:21.0.9_10-jdk-jammy AS build
+WORKDIR /service
+COPY apps/hr-service/src ./src
+RUN javac --release 21 --add-modules jdk.httpserver -d classes src/Main.java
+
+FROM eclipse-temurin:21.0.9_10-jre-jammy AS runtime
+WORKDIR /service
+RUN useradd --create-home people
+COPY --from=build --chown=people:people /service/classes ./classes
+COPY --chown=people:people apps/hr-service/fixtures ./fixtures
+ENV HOST=0.0.0.0 PORT=5006
+USER people
+CMD ["java", "--add-modules", "jdk.httpserver", "-cp", "classes", "Main"]

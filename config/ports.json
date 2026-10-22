@@ -1,0 +1,14 @@
+{
+  "storefront": 3002,
+  "admin": 3001,
+  "blog": 3003,
+  "hr-portal": 3004,
+  "api-gateway": 5001,
+  "user-service": 5002,
+  "order-service": 5003,
+  "payment-service": 5004,
+  "inventory-service": 5005,
+  "hr-service": 5006,
+  "customer-mobile": 8081,
+  "employee-mobile": 8082
+}

@@ -1,0 +1,32 @@
+{
+  "name": "northstar-equipment",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build --concurrency=4",
+    "clean": "turbo run clean",
+    "dev": "node scripts/dev.mjs commerce",
+    "format": "prettier --write \"{apps,packages,scripts,tests}/**/*.{ts,tsx,mjs,json}\"",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "check-types": "turbo run check-types",
+    "dev:hr": "node scripts/dev.mjs hr",
+    "dev:all": "node scripts/dev.mjs all",
+    "dev:blog": "pnpm --filter blog dev",
+    "dev:customer-mobile": "pnpm --filter customer-mobile dev",
+    "dev:employee-mobile": "pnpm --filter employee-mobile dev",
+    "db:init": "node scripts/data.mjs init",
+    "db:reset": "node scripts/data.mjs reset",
+    "setup:python": "node scripts/python.mjs setup",
+    "smoke": "node --test tests/smoke.test.mjs",
+    "corpus:check": "node scripts/corpus-check.mjs",
+    "export:participants": "node scripts/export.mjs"
+  },
+  "devDependencies": {
+    "prettier": "3.9.6",
+    "turbo": "^2.11.10"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=24.20.0"
+  }
+}

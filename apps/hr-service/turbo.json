@@ -1,0 +1,14 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "dev": {
+      "env": ["PORT", "HOST", "USER_SERVICE_URL", "INIT_ONLY"]
+    },
+    "build": {
+      "outputs": ["build/**"]
+    },
+    "test": {
+      "cache": false
+    }
+  }
+}

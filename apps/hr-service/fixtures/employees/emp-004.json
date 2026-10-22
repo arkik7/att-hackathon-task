@@ -1,0 +1,8 @@
+{
+  "employee_id": "emp-004",
+  "display_name": "Casey Chen",
+  "work_email": "casey.chen@example.test",
+  "department": "Engineering",
+  "manager_id": null,
+  "employment_status": "active"
+}

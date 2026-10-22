@@ -1,0 +1,2 @@
+type Inventory { assetId: ID!, roomId: String!, custodian: String }
+type Query { inventory(roomId: String!): [Inventory!]! }

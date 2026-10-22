@@ -1,0 +1,122 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Customer profile",
+    "version": "2026.09",
+    "description": "Accounts v2 returns account_status and customer_tier. Employee records are not stored here. Earlier Accounts examples used a different route and response names."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5002"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Service health",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "ok"
+                    },
+                    "service": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "service"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        }
+      }
+    },
+    "/v2/users/{id}": {
+      "get": {
+        "summary": "Customer profile",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "display_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "account_status": {
+                      "enum": [
+                        "active",
+                        "suspended"
+                      ]
+                    },
+                    "customer_tier": {
+                      "enum": [
+                        "standard",
+                        "business"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "display_name",
+                    "email",
+                    "account_status",
+                    "customer_tier"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "502": {
+            "description": "Dependency unavailable"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

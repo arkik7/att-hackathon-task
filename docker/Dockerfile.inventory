@@ -1,0 +1,14 @@
+FROM python:3.13.7-slim AS dependencies
+WORKDIR /service
+COPY apps/inventory-service/requirements.txt .
+RUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
+
+FROM python:3.13.7-slim AS runtime
+WORKDIR /service
+COPY --from=dependencies /wheels /wheels
+RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels && useradd --create-home inventory
+COPY --chown=inventory:inventory apps/inventory-service .
+RUN mkdir /data && chown inventory:inventory /data
+ENV DATA_DIR=/data
+USER inventory
+CMD ["python", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5005"]

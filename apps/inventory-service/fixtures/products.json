@@ -1,0 +1,92 @@
+[
+  {
+    "sku": "NS-001",
+    "name": "USB-C Hub",
+    "price_minor": 2500,
+    "stock_on_hand": 10
+  },
+  {
+    "sku": "NS-002",
+    "name": "Desk Stand",
+    "price_minor": 3000,
+    "stock_on_hand": 11
+  },
+  {
+    "sku": "NS-003",
+    "name": "Headset",
+    "price_minor": 3500,
+    "stock_on_hand": 12
+  },
+  {
+    "sku": "NS-004",
+    "name": "Webcam",
+    "price_minor": 4000,
+    "stock_on_hand": 13
+  },
+  {
+    "sku": "NS-005",
+    "name": "Travel Dock",
+    "price_minor": 4500,
+    "stock_on_hand": 14
+  },
+  {
+    "sku": "NS-006",
+    "name": "Keyboard",
+    "price_minor": 5000,
+    "stock_on_hand": 15
+  },
+  {
+    "sku": "NS-007",
+    "name": "Mouse",
+    "price_minor": 5500,
+    "stock_on_hand": 16
+  },
+  {
+    "sku": "NS-008",
+    "name": "Privacy Screen",
+    "price_minor": 6000,
+    "stock_on_hand": 17
+  },
+  {
+    "sku": "NS-009",
+    "name": "Cable Kit",
+    "price_minor": 6500,
+    "stock_on_hand": 18
+  },
+  {
+    "sku": "NS-010",
+    "name": "Laptop Sleeve",
+    "price_minor": 7000,
+    "stock_on_hand": 19
+  },
+  {
+    "sku": "NS-011",
+    "name": "Monitor Arm",
+    "price_minor": 7500,
+    "stock_on_hand": 20
+  },
+  {
+    "sku": "NS-012",
+    "name": "Power Adapter",
+    "price_minor": 8000,
+    "stock_on_hand": 21
+  },
+  {
+    "sku": "NS-013",
+    "name": "Conference Speaker",
+    "price_minor": 8500,
+    "stock_on_hand": 22
+  },
+  {
+    "sku": "NS-014",
+    "name": "Ethernet Adapter",
+    "price_minor": 9000,
+    "stock_on_hand": 23
+  },
+  {
+    "sku": "NS-015",
+    "name": "Field Toolkit",
+    "price_minor": 9500,
+    "stock_on_hand": 1
+  }
+]

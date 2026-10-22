@@ -1,0 +1,5 @@
+type Product { sku: ID!, name: String!, price_minor: Int!, stock_on_hand: Int! }
+type Customer { id: ID!, display_name: String!, email: String!, account_status: String!, customer_tier: String! }
+type Charge { id: ID!, status: String!, amount_minor: Int!, currency: String! }
+type Order { id: ID!, customer_id: ID!, total_minor: Int!, status: String!, customer: Customer, charge: Charge }
+type Query { products: [Product!]!, order(id: ID!): Order, customer(id: ID!): Customer }

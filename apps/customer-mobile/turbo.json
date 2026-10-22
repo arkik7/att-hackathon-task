@@ -1,0 +1,12 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "outputs": ["dist/**"],
+      "env": ["EXPO_PUBLIC_GATEWAY_URL", "CI", "INIT_ONLY"]
+    },
+    "dev": {
+      "env": ["EXPO_PUBLIC_GATEWAY_URL", "INIT_ONLY"]
+    }
+  }
+}
