@@ -4,8 +4,11 @@
     "slug": "customer-mobile",
     "version": "1.0.0",
     "web": {
-      "bundler": "metro"
+      "bundler": "metro",
+      "output": "single"
     },
-    "platforms": ["ios", "android", "web"]
+    "platforms": ["ios", "android", "web"],
+    "scheme": "northstar-customer-mobile",
+    "plugins": ["expo-router"]
   }
 }

@@ -4,6 +4,10 @@
   "private": true,
   "sideEffects": false,
   "type": "module",
+  "files": [
+    "build",
+    "public"
+  ],
   "scripts": {
     "build": "remix vite:build",
     "dev": "remix vite:dev",

@@ -4,8 +4,11 @@
     "slug": "employee-mobile",
     "version": "1.0.0",
     "web": {
-      "bundler": "metro"
+      "bundler": "metro",
+      "output": "single"
     },
-    "platforms": ["ios", "android", "web"]
+    "platforms": ["ios", "android", "web"],
+    "scheme": "northstar-employee-mobile",
+    "plugins": ["expo-router"]
   }
 }

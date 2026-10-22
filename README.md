@@ -1,8 +1,41 @@
 # Northstar Equipment
 
-A fictional engineering repository for the AT&T Context Service hackathon. All people, incidents, records, and organizational history are synthetic.
+A fictional engineering repository for the AT&T Context Service hackathon. All people, incidents, records, and organizational history are made up.
 
 The repository contains commerce and People applications, an independent engineering journal, local data stores, and engineering knowledge from several teams. The task is to build an evidence-backed Context Service over these materials. Source inspection is enough to begin; running the applications is optional.
+
+## TL;DR: Want to run everything quickly?
+
+> **Running the apps is NOT a requirement of this task. Your main task is to build a Context Service over the repository materials. Running these apps is optional.**
+
+Only Docker is needed on your computer—no Node, pnpm, Python, Java JDK, or `.env` files.
+
+- **Windows:** Install and start [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) with the **WSL 2 backend** and Linux containers. In **PowerShell**, `cd` into your checkout (for example, `cd C:\Projects\att`); the commands below work as written. If using a **WSL terminal**, enable Docker Desktop's **Settings → Resources → WSL Integration** for your distribution and use its checkout path (for example, `cd /mnt/c/Projects/att`).
+- **macOS:** Install and start [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/) for your chip (Apple silicon or Intel), then open Terminal in your checkout.
+- **Linux:** Start Docker Engine with the Compose plugin installed, then open a terminal in your checkout.
+
+From the **repository root**, run each line in order. Internet access is needed for the first build; allow several minutes. Stop any existing pnpm development stack first.
+
+```sh
+docker compose --profile commerce --profile hr up --build -d
+docker build -f docker/Dockerfile.node --build-arg APP=blog -t northstar-blog .
+docker run -d --name northstar-blog -e PORT=3003 -p 127.0.0.1:3003:3003 northstar-blog ./node_modules/.bin/remix-serve ./build/server/index.js
+docker build -f docker/Dockerfile.web --target vite-runtime --build-arg APP=customer-mobile -t northstar-customer-mobile .
+docker run -d --name northstar-customer-mobile -p 127.0.0.1:8081:8080 northstar-customer-mobile
+docker build -f docker/Dockerfile.web --target vite-runtime --build-arg APP=employee-mobile -t northstar-employee-mobile .
+docker run -d --name northstar-employee-mobile -p 127.0.0.1:8082:8080 northstar-employee-mobile
+```
+
+Open **Storefront:** http://localhost:3002 · **Admin:** http://localhost:3001 · **HR:** http://localhost:3004 · **Blog:** http://localhost:3003 · **Customer mobile:** http://localhost:8081 · **Employee mobile:** http://localhost:8082. The mobile apps run as browser versions; no phone or emulator is needed. **GraphQL:** http://localhost:5001/graphql.
+
+Stop and remove the containers (demo data is preserved):
+
+```sh
+docker compose --profile commerce --profile hr down
+docker rm -f northstar-blog northstar-customer-mobile northstar-employee-mobile
+```
+
+Curious? Read the [full Docker guide](#option-a-docker), [pnpm development setup](#option-b-pnpm), and [application walkthrough](#try-the-applications) below.
 
 ## Start with the files
 
@@ -381,6 +414,8 @@ More implementation detail is in [local development](docs/how-to/local-developme
 | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `no configuration file provided`, or pnpm cannot find this workspace           | Open a terminal in the repository root, where `compose.yaml` and `package.json` live.                                                                                                                                                                                             |
 | Docker cannot connect to the daemon or named pipe                              | Start Docker Desktop/Engine and check `docker info`. In WSL, check Docker Desktop integration for that distribution.                                                                                                                                                              |
+| nginx says `400 Bad Request: Request Header Or Cookie Too Large`                | Try http://127.0.0.1:3001 for admin, or a private browser window. Clear cookies for `localhost` if needed; cookies from other localhost apps can exceed nginx's header limit, even when those apps use different ports. |
+| Blog refuses connections or its container exits                                | Check `docker logs northstar-blog`. If `build/server/index.js` is missing, use the current `apps/blog/package.json` (its `files` list includes `build`), rebuild with `docker build -f docker/Dockerfile.node --build-arg APP=blog -t northstar-blog .`, remove the failed container with `docker rm northstar-blog`, and repeat the TL;DR blog `docker run` command. |
 | `docker compose` is unavailable                                                | Use a Docker installation with Compose v2. Check `docker compose version` before attempting the build.                                                                                                                                                                            |
 | First Docker build is slow or appears busy downloading                         | Let the initial image and package downloads finish. Inspect the visible build output for an actual error before retrying. Later starts can reuse images.                                                                                                                          |
 | Build is killed or runs out of memory                                          | Close other heavy applications. Reduce concurrent Docker work with `docker compose --parallel 1 --profile commerce --profile hr up --build -d`.                                                                                                                                   |
